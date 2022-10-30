@@ -1,0 +1,29 @@
+plt.figure(figsize=(20, 10))
+
+# define the mask to set the values in the upper triangle to True
+mask = np.triu(np.ones_like(df_train.corr(), dtype=np.bool))
+heatmap = sns.heatmap(df_train.corr(), mask=mask, vmin=-1, vmax=1, annot=True, cmap='BrBG')
+heatmap.set_title('Triangle Correlation Heatmap', fontdict={'fontsize':18}, pad=16);
+
+from sklearn.impute import SimpleImputer
+imputer = SimpleImputer(missing_values=nan, strategy="mean")
+imputer.fit(df_train['MinTemp'].values.reshape(-1, 1))
+df_train['MinTemp'] = imputer.transform(df_train['MinTemp'].values.reshape(-1, 1))
+
+
+imputer = SimpleImputer(missing_values=nan, strategy="median")
+imputer.fit(df_train['Rainfall'].values.reshape(-1, 1))
+df_train['Rainfall'] = imputer.transform(df_train['Rainfall'].values.reshape(-1, 1))
+
+
+for df in [df_train]:
+    df['WindGustDir'].fillna(df_train['WindGustDir'].mode()[0], inplace=True)
+    df['WindDir9am'].fillna(df_train['WindDir9am'].mode()[0], inplace=True)
+    df['WindDir3pm'].fillna(df_train['WindDir3pm'].mode()[0], inplace=True)
+    df['RainToday'].fillna(df_train['RainToday'].mode()[0], inplace=True)
+
+df_train.isnull().sum()
+
+from imblearn.over_sampling import SMOTE
+smote = SMOTE(random_state = 43)
+X, Y = smote.fit_resample(X, Y)
