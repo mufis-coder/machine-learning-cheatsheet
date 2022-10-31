@@ -8,6 +8,19 @@ heatmap.set_title('Triangle Correlation Heatmap', fontdict={'fontsize':18}, pad=
 
 df_train.isnull().sum()
 
+columns = df.columns
 
+from joblib import load as joblibLoad
+std_scaler_path = basePath + '0-new-work/model-normalization/std_scaler.bin'
+std_scaler = joblibLoad(std_scaler_path)
 
+df_scaled = std_scaler.transform(df)
 
+df_scaled = pd.DataFrame(df_scaled, columns=['ACCELEROMETER X (m/sÂ²)', 'ACCELEROMETER Y (m/sÂ²)',
+       'ACCELEROMETER Z (m/sÂ²)', 'LINEAR ACCELERATION X (m/sÂ²)',
+       'LINEAR ACCELERATION Y (m/sÂ²)', 'LINEAR ACCELERATION Z (m/sÂ²)',
+       'GYROSCOPE X (rad/s)', 'GYROSCOPE Y (rad/s)', 'GYROSCOPE Z (rad/s)', 'ORIENTATION Z (yaw Â°)',
+       'ORIENTATION Y (pitch Â°)', 'ORIENTATION X (roll Â°)'])
+
+train = train.reset_index(drop=True)
+validation = validation.reset_index(drop=True)

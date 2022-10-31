@@ -1,4 +1,6 @@
-# Model Classfiers
+# Multiple Models
+
+## Model Classfiers
 
 ```py
 from sklearn.linear_model import LogisticRegression
@@ -7,14 +9,65 @@ from sklearn.ensemble import RandomForestClassifier
 import xgboost as xgb
 from catboost import CatBoostClassifier
 
-models = [
+model_clas = [
     ('LogisticRegression', LogisticRegression()),
     ('DecisionTreeClassifier', DecisionTreeClassifier()),
     ('RandomForestClassifier', RandomForestClassifier()),
     ('XGBoostClassifier', xgb.XGBClassifier()),
     ('CatBoostRegressor', CatBoostClassifier()),
     ]
+```
 
+- evaluation classification
+
+```py
+from sklearn.metrics import f1_score, confusion_matrix
+
+def calc_f1score(y_true, y_pred):
+    score = f1_score(y_true, y_pred)*100
+    cf_matrix = confusion_matrix(y_true, y_pred)
+    print(f'F1:{score}')
+    print("confusion matrix")
+    print(cf_matrix)
+    return score
+```
+
+## Model Regression
+
+```py
+from sklearn.ensemble import RandomForestRegressor
+import xgboost as xgb
+import catboost as cb
+import lightgbm as lgb
+
+models_reg = [('LightGBM',  lgb.LGBMRegressor()),
+                   ('RandomForestRegressor', RandomForestRegressor()),
+                   ('XGBoostRegressor', xgb.XGBRFRegressor()),
+                   ('CatBoostRegressor', cb.CatBoostRegressor(loss_function='MultiRMSE', verbose=0))]
+```
+
+- evaluation regression
+
+```py
+from sklearn.metrics import mean_absolute_error, mean_squared_error
+
+def calc_mse_mae_rmse(y_true, y_pred):
+    mses = mean_squared_error(
+        y_true, y_pred, multioutput='raw_values', squared=True)
+    rmses = mean_squared_error(
+        y_true, y_pred, multioutput='raw_values', squared=False)
+    maes = mean_absolute_error(y_true, y_pred, multioutput='raw_values')
+
+    print(f'MSE:{mses}')
+    print(f'RMSE:{rmses}')
+    print(f'MAE:{maes}')
+
+    return mses, rmses, maes
+```
+
+## Training
+
+```py
 import time
 def train_models(models, x, y):
     models_trained = {"model_name": [], "model": []}
@@ -32,19 +85,9 @@ def train_models(models, x, y):
 models_trained = train_models(models, X_train, y_train)
 ```
 
-- evaluation
+## Evaluation
 
 ```py
-from sklearn.metrics import f1_score, confusion_matrix
-
-def calc_f1score(name, y_true, y_pred):
-    score = f1_score(y_true, y_pred)*100
-    cf_matrix = confusion_matrix(y_true, y_pred)
-    print(f'F1:{score}')
-    print("confusion matrix")
-    print(cf_matrix)
-    return score
-
 def calc_score(models_trained, x, y):
   Metrics = {"model_name":[], "score":[]}
   for i in range(0, 5):
