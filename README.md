@@ -65,8 +65,10 @@ df.isnull().sum() / df.shape[0] * 100.00
 df = df.dropna()
 ```
 
-[Category to numerik (encoding)](https://github.com/mufis-coder/machine-learning-cheatsheet/blob/main/encoding.md)
+- [Category to numerik (encoding)](https://github.com/mufis-coder/machine-learning-cheatsheet/blob/main/encoding.md)
 
-[Fill nan value (imputation)](https://github.com/mufis-coder/machine-learning-cheatsheet/blob/main/imputation.md)
+- [Fill nan value (imputation)](https://github.com/mufis-coder/machine-learning-cheatsheet/blob/main/imputation.md)
 
-[Split and Balance data](https://github.com/mufis-coder/machine-learning-cheatsheet/blob/main/split-balancing-data.md)
+- [Split and Balance data](https://github.com/mufis-coder/machine-learning-cheatsheet/blob/main/split-balancing-data.md)
+
+- [Hyperparameter Tuning](https://github.com/mufis-coder/machine-learning-cheatsheet/blob/main/hyperparameter-tuning.md)
