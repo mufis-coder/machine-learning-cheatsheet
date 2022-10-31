@@ -67,4 +67,4 @@ df = df.dropna()
 
 [Category to numerik (encoding)](https://github.com/mufis-coder/machine-learning-cheatsheet/blob/main/encoding.md)
 
-[Fill nan value (imputation)](https://github.com/mufis-coder/machine-learning-cheatsheet/blob/main/encoding.md)
+[Fill nan value (imputation)](https://github.com/mufis-coder/machine-learning-cheatsheet/blob/main/imputation.md)

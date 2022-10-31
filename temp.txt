@@ -8,6 +8,6 @@ heatmap.set_title('Triangle Correlation Heatmap', fontdict={'fontsize':18}, pad=
 
 df_train.isnull().sum()
 
-from imblearn.over_sampling import SMOTE
-smote = SMOTE(random_state = 43)
-X, Y = smote.fit_resample(X, Y)
+
+
+
