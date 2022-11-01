@@ -35,15 +35,32 @@ def calc_f1score(y_true, y_pred):
 ## Model Regression
 
 ```py
+from sklearn.feature_selection import RFE
+from sklearn.linear_model import LinearRegression, SGDRegressor, ElasticNet, Lars
+from sklearn.tree import DecisionTreeRegressor
+from sklearn.svm import SVR
+from sklearn.neighbors import KNeighborsRegressor
+
 from sklearn.ensemble import RandomForestRegressor
 import xgboost as xgb
 import catboost as cb
 import lightgbm as lgb
+from sklearn.neural_network import MLPRegressor
 
-models_reg = [('LightGBM',  lgb.LGBMRegressor()),
-                   ('RandomForestRegressor', RandomForestRegressor()),
-                   ('XGBoostRegressor', xgb.XGBRFRegressor()),
-                   ('CatBoostRegressor', cb.CatBoostRegressor(loss_function='MultiRMSE', verbose=0))]
+
+models_reg = [('LinearRegression', MultiOutputRegressor(LinearRegression())),
+                ('SGDRegressor', MultiOutputRegressor(SGDRegressor())),
+                ('Lars', MultiOutputRegressor(Lars(normalize=False))),
+                ('Decision Tree', MultiOutputRegressor(DecisionTreeRegressor())),
+                ('SVM', MultiOutputRegressor(SVR())),
+                ('KNNRegressor', MultiOutputRegressor(KNeighborsRegressor())),
+                ('Elastic-Net', MultiOutputRegressor(ElasticNet())),
+                ('MLPRegressor', MLPRegressor(activation='tanh', learning_rate_init=0.005, solver='sgd')),
+
+                ('LightGBM',  lgb.LGBMRegressor()),
+                ('RandomForestRegressor', RandomForestRegressor()),
+                ('XGBoostRegressor', xgb.XGBRFRegressor()),
+                ('CatBoostRegressor', cb.CatBoostRegressor(loss_function='MultiRMSE', verbose=0))]
 ```
 
 - evaluation regression
@@ -96,12 +113,21 @@ def calc_score(models_trained, x, y):
 
     print('predicting by:', name)
     y_pred = model.predict(x)
-    score = calc_f1score(name, y, y_pred)
+    score = calc_f1score(y, y_pred) || calc_mse_mae_rmse(y, y_pred)
 
     Metrics["model_name"].append(name)
     Metrics["f1_score"].append(score)
   return Metrics
 
-scores = calc_score(X_test, y_test)
+scores = calc_score(models_trained, X_test, y_test)
 scores_df = pd.DataFrame.from_dict(met_dict)
+```
+
+## Saving Model
+
+```py
+from joblib import dump
+for name, model in models_trained:
+  filePath = f'{basePath}/{name}-{description-model}.sav'
+  dump(model, filePath)
 ```

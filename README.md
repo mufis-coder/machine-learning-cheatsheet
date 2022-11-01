@@ -69,6 +69,8 @@ df = df.dropna()
 
 - [Fill nan value (imputation)](https://github.com/mufis-coder/machine-learning-cheatsheet/blob/main/imputation.md)
 
+- [Normalization](https://github.com/mufis-coder/machine-learning-cheatsheet/blob/main/normalization.md)
+
 - [Category to numerik (encoding)](https://github.com/mufis-coder/machine-learning-cheatsheet/blob/main/encoding.md)
 
 - [Split and Balance data](https://github.com/mufis-coder/machine-learning-cheatsheet/blob/main/split-balancing-data.md)
