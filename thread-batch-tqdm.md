@@ -3,6 +3,11 @@
 ## Thread and batch
 
 ```py
+from tqdm import tqdm
+import time
+import concurrent.futures
+from more_itertools import grouper
+
 start = time.time()
 
 def convert_heic_png(data_list, global_count):
