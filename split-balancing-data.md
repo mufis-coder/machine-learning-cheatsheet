@@ -9,6 +9,9 @@ X = df_train.drop(['feature_target'], axis=1)
 Y = df_train['feature_target']
 
 X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=0.33, random_state=42)
+
+# reset index in dataframe
+train = train.reset_index(drop=True)
 ```
 
 - oversampling

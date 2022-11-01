@@ -9,55 +9,6 @@ heatmap.set_title('Triangle Correlation Heatmap', fontdict={'fontsize':18}, pad=
 
 
 
-
-df_merged = df3.append([df2, df4], ignore_index=True)
-
-df1['Model Type'] = 'SingleLearning'
-df2['Model Type'] = 'EnsembleLearning'
-
-df_train.isnull().sum()
-
-columns = df.columns
-
-
-
-
-
-train = train.reset_index(drop=True)
-validation = validation.reset_index(drop=True)
-
-
-
-
-
-
-df1.drop(columns=['Model Type'], inplace=True)
-df1 = df1[df1['Model Name'].isin(['Elastic-Net', 'LightGBM', 'RandomForestRegressor', 'XGBoostRegressor', 'CatBoostRegressor', 'Decision Tree'])]
-df1 = df1[df1['Train-Validation Dataset Source']=='1,2']
-
-
-comRes = {"Model Name":[], "Tuning Status":[], "Train-Validation Dataset Source":[], "Test Dataset Source":[], 
-          "Data Type":[], "Metric Type":[], "Y Target":[], "Value metric":[]}
-for index, row in df.iterrows():
-  modType = row['Tuning Status']
-  modName = row['Model Name']
-  trainValDataSrc = row['Train-Validation Dataset Source']
-  testDataSrc = row['Test Dataset Source']
-  for col in cols:
-    colsNew = col.split("-")
-    comRes["Tuning Status"].append(modType)
-    comRes["Model Name"].append(modName)
-    comRes["Train-Validation Dataset Source"].append(trainValDataSrc)
-    comRes["Test Dataset Source"].append(testDataSrc)
-    comRes["Data Type"].append(colsNew[0])
-    comRes["Metric Type"].append(colsNew[1])
-    comRes["Y Target"].append(colsNew[2])
-    comRes["Value metric"].append(row[col])
-
-dfDTTuned = dfDT[dfDT['Tuning Status']=='Tuned']
-
-
-
 plt.figure(1 , figsize = (21, 15))
 plt.subplot(2 , 3 , 1)
 plt.subplots_adjust(hspace = 0.5 , wspace = 0.5)

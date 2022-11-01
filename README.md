@@ -47,6 +47,28 @@ df = df[columns]
 df = df.dropna()
 ```
 
+- select rows
+
+```py
+#single condition
+df = df[df["cols1"]=="value1"]
+
+#multiple conditions
+df = df[df['cols1'].isin(["value1", "value2", "value3"])]
+```
+
+- Concat df vertically
+
+```py
+df_merged = df1.append([df2, df3], ignore_index=True)
+```
+
+- Add columns with value from list
+
+```py
+df1['col_new'] = [value1, value2, value3]
+```
+
 - dates
 
 ```py
@@ -65,6 +87,18 @@ df.isnull().sum()
 df.isnull().sum() / df.shape[0] * 100.00
 
 df = df.dropna()
+```
+
+- make dataframe using dictionary
+  
+```py
+temp_dict = {"cols1":[], "cols2":[]}
+
+for index, row in df.iterrows():
+    temp_dict["cols1"].append(row["cols_df1"])
+    temp_dict["cols2"].append(row["cols_df2"])
+
+df_new = pd.DataFrame(temp_dict)
 ```
 
 - [Fill nan value (imputation)](https://github.com/mufis-coder/machine-learning-cheatsheet/blob/main/imputation.md)
