@@ -112,3 +112,7 @@ df_new = pd.DataFrame(temp_dict)
 - [Train multiple models](https://github.com/mufis-coder/machine-learning-cheatsheet/blob/main/multiple-models.md)
 
 - [Hyperparameter Tuning](https://github.com/mufis-coder/machine-learning-cheatsheet/blob/main/hyperparameter-tuning.md)
+
+- [Visualization](https://github.com/mufis-coder/machine-learning-cheatsheet/blob/main/visualization.md)
+
+- [Thread, batch, and tqdm](https://github.com/mufis-coder/machine-learning-cheatsheet/blob/main/thread-batch-tqdm.md)
