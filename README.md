@@ -101,6 +101,12 @@ for index, row in df.iterrows():
 df_new = pd.DataFrame(temp_dict)
 ```
 
+- print all str in dataframe
+
+```py
+df_train.review_text.values.astype(str)
+```
+
 - [Fill nan value (imputation)](https://github.com/mufis-coder/machine-learning-cheatsheet/blob/main/imputation.md)
 
 - [Normalization](https://github.com/mufis-coder/machine-learning-cheatsheet/blob/main/normalization.md)
